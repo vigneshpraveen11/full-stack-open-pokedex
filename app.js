@@ -8,7 +8,6 @@ app.use(express.static('dist'))
 
 app.get('/health', (req, res) => {
   // eslint-disable-next-line no-constant-condition
-  if(true) throw Error('test')
   res.send('ok')
 })
 
