@@ -20,6 +20,10 @@ jobs:
         run: npm install
       - name: Check Style
         run: npm run eslint
+      - name: Build Project
+        run: npm run build
+      - name: Run Tests
+        run: npm run test
 
 ...
         
