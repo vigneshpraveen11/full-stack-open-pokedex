@@ -34,9 +34,9 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:3000
   tag_relase_new_version:
-    if: ${{ github.event_name == 'push' }}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.64.0
