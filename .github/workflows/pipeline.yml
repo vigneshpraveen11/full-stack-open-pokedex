@@ -48,8 +48,8 @@ jobs:
         if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message, ', '), '#skip') }}       
       - name: Setup Fly
         uses: superfly/flyctl-actions/setup-flyctl@master
-        if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message, ', '), '#skip') }}
       - name: Deploy to Fly
+        if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message, ', '), '#skip') }}
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
