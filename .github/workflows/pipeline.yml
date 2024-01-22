@@ -33,13 +33,19 @@ jobs:
           command: npm run e2e:test
           start: npm run start-prod
           wait-on: http://localhost:3000
+  tag_and_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04      
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message, ', '), '#skip') }}
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-        if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message, ', '), '#skip') }}
+        uses: anothrNick/github-tag-action@1.64.0
+        if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message, ', '), '#skip') }}       
       - name: Setup Fly
         uses: superfly/flyctl-actions/setup-flyctl@master
         if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message, ', '), '#skip') }}
